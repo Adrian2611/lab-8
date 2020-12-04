@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lab 8</title>
+        <title>Lab Project - Heatmaps</title>
 		<link rel="icon" href="favicon.png" >
 		<link rel="stylesheet" href="plugins/boostrap/css/bootstrap.css">
 		<!-- Load c3.css -->
@@ -250,7 +250,6 @@
 			geojson.getPopup().on('remove', function() {
 				map.fitBounds(geojson.getBounds());
 			});
-			
 			$.getJSON("data/forest_fires.geojson",function(data){
 				var locations = data.features.map(function(fires) {
 				// the heatmap plugin wants an array of each location
@@ -307,7 +306,7 @@
 			var map = L.map('mymap',  {
 				center: [39.2880922,-100.7323497],
 				zoom: 4,
-				layers: [Jawg_Matrix],
+				layers: [Jawg_Matrix, geojson],
 				 //heatmapLayer/add to map
 			});
 			map.fitBounds(geojson.getBounds());
@@ -317,7 +316,7 @@
 				"OSM Mapnik": OpenStreetMap_Mapnik
 			};
 			var overlayMaps = {
-				"Forest Fires" : ""
+				"Forest Fires" : geojson,
 			};
 			
 			var legend = L.control({position: 'bottomright'});
@@ -338,12 +337,12 @@
 				div.innerHTML += '</br><span class="small text-muted">Source : Esri <a target = "_blank" href="https://storymaps.esri.com/stories/usa-wildfires/">USA Wildfires</a></span> <br>';
 				return div;
 			};
-			//legend.addTo(map);
+			legend.addTo(map);
 			
 			var titleDiv = L.control({position: 'topright'});
 			titleDiv.onAdd = function (map){
 				var titleText = L.DomUtil.create('div', 'titleDiv');
-				titleText.innerHTML = '<h6>Lab 8 : USA Wild Fires</h6><br><span class="small text-muted">September and October 2020</span>';
+				titleText.innerHTML = '<h6>Lab Project : USA Wild Fires</h6><br><span class="small text-muted">September and October 2020</span>';
 				return titleText;
 			};
 			titleDiv.addTo(map);
